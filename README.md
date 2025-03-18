@@ -30,7 +30,8 @@
 
 ## 特别感谢
 
-[dqzboy/Docker-Proxy](https://github.com/dqzboy/Docker-Proxy)
+- [dqzboy/Docker-Proxy](https://github.com/dqzboy/Docker-Proxy)
+- [Vuetify](https://vuetifyjs.com/)
 
 ## License
 
