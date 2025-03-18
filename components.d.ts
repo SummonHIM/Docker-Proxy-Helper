@@ -9,10 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppBar: typeof import('./src/components/AppBar.vue')['default']
     Converter: typeof import('./src/components/Converter.vue')['default']
-    copy: typeof import('./src/components/DockerConf copy.vue')['default']
     DockerConf: typeof import('./src/components/DockerConf.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    InfoSnackbar: typeof import('./src/components/InfoSnackbar.vue')['default']
     PodmanConf: typeof import('./src/components/PodmanConf.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

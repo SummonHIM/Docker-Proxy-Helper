@@ -3,26 +3,63 @@
     v-model="form.image"
     label="镜像名称"
     variant="solo"
+    class="droid-sans-mono"
   />
-  <v-textarea
-    v-model="form.command"
-    :append-inner-icon="copyIcon(form.copySuccess)"
-    label="手动拉取命令"
-    variant="solo"
-    rows="3"
-    readonly
-    @click:append-inner="copy(form.command)"
-  />
+  <v-card>
+    <v-tabs
+      v-model="form.commandTab"
+    >
+      <v-tab value="docker">
+        Docker
+      </v-tab>
+      <v-tab value="podman">
+        Podman
+      </v-tab>
+    </v-tabs>
+
+    <v-card-text>
+      <v-tabs-window v-model="form.commandTab">
+        <v-tabs-window-item value="docker">
+          <v-textarea
+            v-model="form.commandDocker"
+            :append-inner-icon="copyIcon(form.copySuccess)"
+            label="手动拉取命令"
+            variant="solo"
+            rows="3"
+            readonly
+            class="droid-sans-mono"
+            @click:append-inner="copy(form.commandDocker)"
+          />
+        </v-tabs-window-item>
+
+        <v-tabs-window-item value="podman">
+          <v-textarea
+            v-model="form.commandPodman"
+            :append-inner-icon="copyIcon(form.copySuccess)"
+            label="手动拉取命令"
+            variant="solo"
+            rows="3"
+            readonly
+            class="droid-sans-mono"
+            @click:append-inner="copy(form.commandPodman)"
+          />
+        </v-tabs-window-item>
+      </v-tabs-window>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts" setup>
+import '@/styles/monofont.scss'
 import { copyIcon } from '@/copy';
 import { registryMap } from '@/converter';
 import { ref, watch, type Ref } from 'vue'
 
 interface Form {
   image: string
-  command: string
+  commandDocker: string
+  commandPodman: string,
+  commandTab: 'docker' | 'podman'
   copySuccess: 'none' | 'true' | 'false'
 }
 
@@ -30,7 +67,9 @@ const env = import.meta.env
 // 输入框
 const form: Ref<Form> = ref({
   image: "",
-  command: "请输入镜像名称…",
+  commandDocker: "请输入镜像名称…",
+  commandPodman: "请输入镜像名称…",
+  commandTab: "docker",
   copySuccess: "none"
 })
 
@@ -90,13 +129,20 @@ watch(() => form.value.image, (newValue, oldValue) => {
     try {
       if (!newValue) throw new Error("请输入镜像名称…") // 空值 返回
       if (newValue.startsWith("docker pull ")) newValue = newValue.replace("docker pull ", "").trim() // 开头有 docker pull 清除
+      if (newValue.startsWith("podman pull ")) newValue = newValue.replace("podman pull ", "").trim() // 开头有 podman pull 清除
       if (!validateFormat(newValue)) throw new Error("不支持的镜像！") // 检查格式
 
-      form.value.command = `docker pull ${genImage(newValue)}\t\t# 拉取经过代理的镜像
-docker tag ${genImage(newValue)} ${newValue}\t\t# 将镜像复制为正常的镜像名称
-docker rmi ${genImage(newValue)}\t\t# 删除经过代理的镜像`
+      const image = genImage(newValue)
+
+      form.value.commandDocker = `docker pull ${image}\t\t# 拉取经过代理的镜像
+docker tag ${image} ${newValue}\t\t# 将镜像复制为正常的镜像名称
+docker rmi ${image}\t\t# 删除经过代理的镜像`
+      form.value.commandPodman = `podman pull ${image}\t\t# 拉取经过代理的镜像
+podman tag ${image} ${newValue}\t\t# 将镜像复制为正常的镜像名称
+podman rmi ${image}\t\t# 删除经过代理的镜像`
     } catch (error) {
-      form.value.command = (error as Error).message || "不支持的镜像！"
+      form.value.commandDocker = (error as Error).message || "不支持的镜像！"
+      form.value.commandPodman = (error as Error).message || "不支持的镜像！"
     }
   }
 })

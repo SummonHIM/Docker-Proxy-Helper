@@ -6,11 +6,13 @@
     variant="solo"
     rows="3"
     readonly
+    class="droid-sans-mono"
     @click:append-inner="copy(form)"
   />
 </template>
 
 <script lang="ts" setup>
+import '@/styles/monofont.scss'
 import { copyIcon } from '@/copy';
 import { ref, type Ref } from 'vue';
 

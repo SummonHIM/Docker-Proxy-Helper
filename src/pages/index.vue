@@ -36,7 +36,7 @@
       </v-card-title>
       <v-container>
         <p class="mb-4">
-          编辑 <span>/etc/docker/daemon.json</span>（若没有则创建），将以下内容写入该文件内。
+          编辑 <span class="droid-sans-mono">/etc/docker/daemon.json</span>（若没有则创建），将以下内容写入该文件内。
         </p>
         <DockerConf />
       </v-container>
@@ -48,7 +48,7 @@
       </v-card-title>
       <v-container>
         <p class="mb-4">
-          编辑 <span>/etc/containers/registries.conf</span>（若没有则创建），将以下内容写入该文件最底部。
+          编辑 <span class="droid-sans-mono">/etc/containers/registries.conf</span>（若没有则创建），将以下内容写入该文件最底部。
         </p>
         <PodmanConf />
       </v-container>
@@ -86,6 +86,7 @@
 <script lang="ts" setup>
 import { useTheme } from 'vuetify';
 
+import '@/styles/monofont.scss'
 import icon from '@/assets/icon.png'
 import { registryMap } from '@/converter';
 import AppBar from '@/components/AppBar.vue';

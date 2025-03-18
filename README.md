@@ -24,6 +24,10 @@
 | [pnpm](https://pnpm.io/installation)                          | `pnpm run build` |
 | [bun](https://bun.sh/#getting-started)                        | `bun run build`  |
 
+## 图片示例
+
+![主页](https://github.com/user-attachments/assets/41b81db6-585a-415b-967b-4b9b52e9336b)
+
 ## 特别感谢
 
 [dqzboy/Docker-Proxy](https://github.com/dqzboy/Docker-Proxy)

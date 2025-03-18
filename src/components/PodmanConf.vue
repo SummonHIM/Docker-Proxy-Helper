@@ -6,6 +6,7 @@
     variant="solo"
     rows="45"
     readonly
+    class="droid-sans-mono"
     @click:append-inner="copy(form)"
   />
 </template>
@@ -13,6 +14,7 @@
 <script lang="ts" setup>
 import { ref, type Ref } from 'vue';
 
+import '@/styles/monofont.scss'
 import { copyIcon } from '@/copy';
 import { registryMap, type RegistryMap } from '@/converter';
 
