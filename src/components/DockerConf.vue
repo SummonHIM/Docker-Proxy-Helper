@@ -18,7 +18,7 @@ import { ref, type Ref } from 'vue';
 
 const env = import.meta.env
 const form: Ref<string> = ref(`{
-    "registry-mirrors": [ "${env.VITE_DPH_DOCKER_HUB}" ]
+    "registry-mirrors": [ "${window.location.protocol}//${env.VITE_DPH_DOCKER_HUB}" ]
 }`)
 const copySuccess: Ref<'none' | 'true' | 'false'> = ref("none")
 
