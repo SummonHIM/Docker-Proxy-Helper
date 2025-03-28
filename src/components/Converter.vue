@@ -25,7 +25,7 @@
             :append-inner-icon="copyIcon(form.copySuccess)"
             label="手动拉取命令"
             variant="solo"
-            rows="3"
+            rows="6"
             readonly
             class="droid-sans-mono"
             @click:append-inner="copy(form.commandDocker)"
